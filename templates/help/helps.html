@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        {% for help in helps %}
+            {{ help.tutor }}
+            {{ help.subject }}<br>
+            {{ help.definition }}<br>
+            {{ help.date }}
+            <br><br>
+        {% endfor %}
+{% endblock %}

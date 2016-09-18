@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        {% for tutor_profile in tutor_profiles %}
+            {{ tutor_profile }}
+            <br>
+        {% endfor %}
+{% endblock %}
