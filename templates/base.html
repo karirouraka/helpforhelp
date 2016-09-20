@@ -5,6 +5,15 @@
     <title>Title</title>
 </head>
 <body>
+
+    {{ request.user.username }}
+    <div class="menu">
+        {% if request.user.username %}
+           <a href="{% url 'log_out' %}">Log out</a>
+        {% else %}
+          <a href="{% url 'log_in' %}">Log in</a>
+        {% endif %}
+    </div>
     {% block content %}
 
 

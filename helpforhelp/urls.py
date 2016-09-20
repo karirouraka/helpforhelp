@@ -17,14 +17,20 @@ Including another URLconf
 
 from django.conf.urls import url
 from django.contrib import admin
-from tutor_account.views import register, show_all_tutors, show_all_helps, fill_out_profile
+from tutor_account.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^register/$', register, name='register'),
+    url(r'^log_in/$', log_in, name='log_in'),
+    url(r'^log_out/$', log_out, name='log_out'),
+    url(r'^loged_out_successfully/$', loged_out_successfully, name='loged_out_successfully'),
+
+    url(r'^profile_fill/$', fill_out_profile, name='fill_out_profile'),
     url(r'^all_tutor_profiles/$', show_all_tutors, name='show_all_tutors'),
     url(r'^all_helps/$', show_all_helps, name='show_all_helps'),
-    url(r'^profile_fill/$', fill_out_profile, name='fill_out_profile'),
+
+
 ]
 
 
