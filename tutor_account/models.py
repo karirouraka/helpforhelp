@@ -25,7 +25,7 @@ class UserProfile(models.Model):
     registration_date = models.DateField(auto_now_add=True)
     rating = models.SmallIntegerField(default=0)
     speciality = models.ManyToManyField(Speciality, related_name='tutors')
-    term = models.SmallIntegerField()
+    term = models.PositiveSmallIntegerField()
     subject = models.ManyToManyField(Subject, related_name='tutors')
     prefered_date_and_time = models.DateTimeField()
     lesson_place = models.CharField(max_length=100)

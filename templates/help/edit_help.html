@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>Template for editing help</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ help_form }}
+        <button type="submit">Edit</button>
+    </form>
+{% endblock %}

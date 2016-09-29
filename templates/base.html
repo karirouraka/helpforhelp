@@ -7,12 +7,17 @@
 <body>
 
     {{ request.user.username }}
-    <div class="menu">
-        {% if request.user.username %}
-           <a href="{% url 'log_out' %}">Log out</a>
-        {% else %}
-          <a href="{% url 'log_in' %}">Log in</a>
-        {% endif %}
+    <div class="header">
+            <div class="menu">
+                {% if request.user.username %}
+                    <div class="menu_item"><a href="{% url 'log_out' %}">Log out</a></div>
+                    <div class="menu_item"><a href="{% url 'show_all_helps' %}">Helps</a></div>
+                    <div class="menu_item"><a href="{% url 'show_all_tutors' %}">Tutors</a>
+                {% else %}
+                    <div class="menu_item"><a href="{% url 'log_in' %}">Log in</a></div>
+                    <div class="menu_item"><a href="{% url 'register' %}">Register</a></div>
+                {% endif %}
+            </div>
     </div>
     {% block content %}
 

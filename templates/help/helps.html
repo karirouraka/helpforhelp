@@ -2,10 +2,12 @@
 
 {% block content %}
         {% for help in helps %}
+        <a href="{% url 'get_help' help.pk %}">
             {{ help.tutor }}
             {{ help.subject }}<br>
             {{ help.definition }}<br>
             {{ help.date }}
+        </a>
             <br><br>
         {% endfor %}
 {% endblock %}

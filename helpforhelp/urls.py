@@ -29,6 +29,12 @@ urlpatterns = [
     url(r'^profile_fill/$', fill_out_profile, name='fill_out_profile'),
     url(r'^all_tutor_profiles/$', show_all_tutors, name='show_all_tutors'),
     url(r'^all_helps/$', show_all_helps, name='show_all_helps'),
+    url(r'^get_help/(?P<help_pk>\d+)/$', get_help, name='get_help'),
+    # url(r'^get_content_by_title/(?P<post_pk>\d+)/$', get_content_by_title, name='get_content_by_title'),
+    url(r'^register_help/$', fill_out_help, name='register_help'),
+    url(r'^edit_help/(?P<help_pk>\d+)/$', edit_help, name='edit_help'),
+    url(r'^delete_help/(?P<help_pk>\d+)/$', delete_help, name='delete_help'),
+
 
 
 ]

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="help">
+            {{ help.tutor }}
+            {{ help.subject }}<br>
+            {{ help.definition }}<br>
+            {{ help.date }}
+    </div>
+
+    <form method="POST" action ="{% url 'delete_help' help.pk %}">
+        {% csrf_token %}
+        <button type="submit">Delete help</button>
+    </form>
+
+    <form method="GET" action ="{% url 'edit_help' help.pk %}">
+        <button type="submit">Edit help</button>
+    </form>
+{% endblock %}
