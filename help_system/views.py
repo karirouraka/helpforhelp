@@ -1,7 +1,7 @@
 from django.shortcuts import render,render_to_response,HttpResponse, redirect
 from django.template import RequestContext
-from tutor_account.models import UserProfile, Help
-from tutor_account.forms import UserRegistrationForm, UserProfileForm, LogInForm, HelpForm, ReferenceForm
+from help_system.models import UserProfile, Help
+from help_system.forms import UserRegistrationForm, UserProfileForm, LogInForm, HelpForm, ReferenceForm
 from django.contrib.auth import login, authenticate,logout
 from django.contrib.auth.models import Permission, User
 from django.contrib.auth.decorators import login_required
@@ -20,7 +20,7 @@ def register(request):
             user.backend = 'django.contrib.auth.backends.ModelBackend'
             user.save()
             login(request, user)
-            return redirect('fill_out_profile',profile_pk = user.pk)
+            return redirect('fill_out_profile')
         else:
             return render(request, 'tutor/registration_page.html', {'registration_form': registration_form})
     registration_form = UserRegistrationForm()

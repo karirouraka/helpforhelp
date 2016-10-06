@@ -8,7 +8,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tutor_account', '0006_auto_20161004_1746'),
+        ('help_system', '0006_auto_20161004_1746'),
     ]
 
     operations = [

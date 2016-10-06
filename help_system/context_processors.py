@@ -1,4 +1,4 @@
-from tutor_account.models import HelpReceived
+from help_system.models import HelpReceived
 
 
 def count_all_helps(request):

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from tutor_account.models import *
+from help_system.models import *
 
 # Register your models here.
 

@@ -60,23 +60,23 @@ class Migration(migrations.Migration):
                 ('lesson_place', models.CharField(max_length=100)),
                 ('photo', models.ImageField(blank='True', null=True, upload_to='images')),
                 ('registration_info', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL)),
-                ('speciality', models.ManyToManyField(related_name='tutors', to='tutor_account.Speciality')),
-                ('subject', models.ManyToManyField(related_name='tutors', to='tutor_account.Subject')),
+                ('speciality', models.ManyToManyField(related_name='tutors', to='help_system.Speciality')),
+                ('subject', models.ManyToManyField(related_name='tutors', to='help_system.Subject')),
             ],
         ),
         migrations.AddField(
             model_name='reference',
             name='tutor',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='references', to='tutor_account.UserProfile'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='references', to='help_system.UserProfile'),
         ),
         migrations.AddField(
             model_name='help',
             name='subject',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='helps', to='tutor_account.Subject'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='helps', to='help_system.Subject'),
         ),
         migrations.AddField(
             model_name='help',
             name='tutor',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='helps', to='tutor_account.UserProfile'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='helps', to='help_system.UserProfile'),
         ),
     ]

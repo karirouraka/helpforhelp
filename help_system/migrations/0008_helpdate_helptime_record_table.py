@@ -9,7 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tutor_account', '0007_auto_20161004_1811'),
+        ('help_system', '0007_auto_20161004_1811'),
     ]
 
     operations = [
@@ -31,15 +31,15 @@ class Migration(migrations.Migration):
             name='Record',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='record', to='tutor_account.HelpDate')),
-                ('time', models.ManyToManyField(related_name='record', to='tutor_account.HelpTime')),
+                ('date', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='record', to='help_system.HelpDate')),
+                ('time', models.ManyToManyField(related_name='record', to='help_system.HelpTime')),
             ],
         ),
         migrations.CreateModel(
             name='Table',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('record', models.ManyToManyField(related_name='table', to='tutor_account.Record')),
+                ('record', models.ManyToManyField(related_name='table', to='help_system.Record')),
             ],
         ),
     ]

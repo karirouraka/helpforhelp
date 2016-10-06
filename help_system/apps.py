@@ -4,4 +4,4 @@ from django.apps import AppConfig
 
 
 class TutorAccountConfig(AppConfig):
-    name = 'tutor_account'
+    name = 'help_system'

@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tutor_account',
+    'help_system',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -64,7 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'tutor_account.context_processors.count_all_helps',
+                'help_system.context_processors.count_all_helps',
             ],
         },
     },

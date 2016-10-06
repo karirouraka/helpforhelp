@@ -9,13 +9,13 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tutor_account', '0003_auto_20160920_1910'),
+        ('help_system', '0003_auto_20160920_1910'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='help',
             name='student',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='received_helps', to='tutor_account.UserProfile'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='received_helps', to='help_system.UserProfile'),
         ),
     ]

@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tutor_account', '0005_auto_20161004_1718'),
+        ('help_system', '0005_auto_20161004_1718'),
     ]
 
     operations = [
@@ -26,6 +26,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='help',
             name='date',
-            field=models.ManyToManyField(related_name='helps', to='tutor_account.Date'),
+            field=models.ManyToManyField(related_name='helps', to='help_system.Date'),
         ),
     ]

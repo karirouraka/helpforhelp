@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from tutor_account.models import UserProfile, Help, Reference
+from help_system.models import UserProfile, Help, Reference
 from django.contrib.auth.models import User
 
 class UserProfileForm(forms.ModelForm):
