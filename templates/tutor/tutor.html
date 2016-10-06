@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if tutor.photo %}
+        {{ tutor.photo.url }}
+    {% endif %}
+    {{ tutor.name }}
+    {{ tutor.surname }}
+    {{ tutor.rating }}<br>
+    {{ tutor.speciality }}
+    {{ tutor.term }}<br>
+    {{ tutor.subject.all }}<br>
+    {{ tutor.prefered_date_and_time }}<br>
+    {{ tutor.lesson_place }}<br>
+    {{ tutor.registration_date }}
+    <br><br>
+    <h3>Helps</h3>
+    {% for help in tutor.helps.all %}
+        {{ help.tutor }} helped
+        {{ help.student }}<br>
+        {{ help.date }}<br>
+        <a href="{% url 'detailed_help_information' help.pk %}">Detail information</a><br><br>
+    {% endfor %}
+    <h3>References</h3>
+    {% for reference in tutor.references.all %}
+        {{ reference.author.profile.name }}
+        {{ reference.author.profile.surname }}<br>
+        {{ reference.text }}<br>
+        {{ reference.date }}<br><br>
+    {% endfor %}
+
+    <form method="POST" action ="{% url 'send_reference' tutor.pk %}">
+        {% csrf_token %}
+        {{ reference_form }}
+        <button type="submit">Send</button>
+    </form>
+{% endblock %}
+

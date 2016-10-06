@@ -6,7 +6,8 @@
 </head>
 <body>
 
-    {{ request.user.username }}
+    {{ request.user.username }}<br>
+    {{ help_count }} <span> Helps received from the beginning</span>
     <div class="header">
             <div class="menu">
                 {% if request.user.username %}
@@ -19,6 +20,7 @@
                 {% endif %}
             </div>
     </div>
+
     {% block content %}
 
 

@@ -46,8 +46,45 @@ class Reference(models.Model):
 
 
 
+class HelpTime(models.Model):
+    time = models.TimeField()
+
+    def __str__(self):
+        return str(self.time)
+
+class HelpDate(models.Model):
+    date = models.DateField()
+
+    def __str__(self):
+        return str(self.date)
+
+class Record(models.Model):
+    date = models.ForeignKey(HelpDate, related_name='record')
+    time = models.ManyToManyField(HelpTime, related_name='record')
+
+    def __str__(self):
+        record = str(self.date)
+        for time in self.time.all():
+            record  += ' ' + str(time)
+        return record
+
 class Help(models.Model):
     tutor = models.ForeignKey(UserProfile, related_name='helps')
-    date = models.DateTimeField(auto_now_add=True)
+    # date = models.ManyToManyField(Date, related_name='helps')
     subject = models.ForeignKey(Subject, related_name='helps', on_delete=models.SET_NULL, blank=True, null=True)
     definition = models.TextField(null=True)
+
+
+    def __unicode__(self):
+        return str(self.pk)
+
+
+class Table(models.Model):
+    record = models.ManyToManyField(Record, related_name='table')
+    help = models.ForeignKey(Help, null=True, related_name='offered_timetable')
+
+
+class HelpReceived(models.Model):
+    help = models.ForeignKey(Help, related_name='received')
+    student = models.ForeignKey(UserProfile, related_name='received_helps')
+    date = models.DateTimeField(auto_now_add=True)

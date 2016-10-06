@@ -2,7 +2,9 @@
 
 {% block content %}
         {% for tutor_profile in tutor_profiles %}
-            {{ tutor_profile }}
+            <a href="{% url 'get_tutor_by_name' tutor_profile.pk %}">
+                {{ tutor_profile }}</br>
+            </a>
             <br>
         {% endfor %}
 {% endblock %}

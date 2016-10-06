@@ -1,7 +1,7 @@
 from django.shortcuts import render,render_to_response,HttpResponse, redirect
 from django.template import RequestContext
 from tutor_account.models import UserProfile, Help
-from tutor_account.forms import UserRegistrationForm, UserProfileForm, LogInForm, HelpForm
+from tutor_account.forms import UserRegistrationForm, UserProfileForm, LogInForm, HelpForm, ReferenceForm
 from django.contrib.auth import login, authenticate,logout
 from django.contrib.auth.models import Permission, User
 from django.contrib.auth.decorators import login_required
@@ -22,10 +22,9 @@ def register(request):
             login(request, user)
             return redirect('fill_out_profile',profile_pk = user.pk)
         else:
-            return render_to_response('tutor/registration_page.html', {'registration_form': registration_form},
-                                      context_instance=RequestContext(request))
+            return render(request, 'tutor/registration_page.html', {'registration_form': registration_form})
     registration_form = UserRegistrationForm()
-    return render_to_response('tutor/registration_page.html',{'registration_form':registration_form},context_instance=RequestContext(request))
+    return render(request,'tutor/registration_page.html',{'registration_form':registration_form})
 
 def log_in(request):
     if request.POST:
@@ -43,11 +42,9 @@ def log_in(request):
 
             return redirect('fill_out_profile')
         else:
-            return render_to_response('tutor/login_page.html', {'login_form': login_form},
-                                      context_instance=RequestContext(request))
+            return render(request,'tutor/login_page.html', {'login_form': login_form})
     login_form = LogInForm()
-    return render_to_response('tutor/login_page.html', {'login_form': login_form},
-                              context_instance=RequestContext(request))
+    return render(request, 'tutor/login_page.html', {'login_form': login_form})
 
 
 
@@ -91,7 +88,28 @@ def fill_out_profile(request):
 
 def show_all_tutors(request):
     tutor_profiles = UserProfile.objects.all()
-    return  render_to_response('tutor/tutor_profiles.html',{'tutor_profiles':tutor_profiles},context_instance=RequestContext(request))
+    return  render(request, 'tutor/tutor_profiles.html',{'tutor_profiles':tutor_profiles})
+
+@login_required
+def get_tutor_by_pk(request, tutor_pk):
+    tutor = UserProfile.objects.get(pk=tutor_pk)
+    reference_form = ReferenceForm()
+
+    return render(request, 'tutor/tutor.html', {'tutor': tutor, 'reference_form': reference_form})
+
+@login_required
+def send_reference(request, tutor_pk):
+    tutor = UserProfile.objects.get(pk=tutor_pk)
+    reference_form = ReferenceForm(request.POST)
+    if reference_form.is_valid():
+        reference = reference_form.save(commit=False)
+        reference.author = request.user
+        reference.tutor = tutor
+        reference.save()
+        return redirect('get_tutor_by_name', tutor_pk=tutor_pk)
+    return render(request,'tutor/tutor.html', {'tutor': tutor, 'reference_form': reference_form})
+
+
 
 @login_required
 def show_all_helps(request):
@@ -134,7 +152,7 @@ def edit_help(request, help_pk):
 @login_required
 def get_help(request, help_pk):
     help = Help.objects.get(pk=help_pk)
-    return render(request, 'help/help.html', {'help': help})
+    return render(request, 'help/detailed_help_information.html', {'help': help})
 
 
 @login_required
@@ -142,5 +160,3 @@ def delete_help(request, help_pk):
     help=Help.objects.get(pk=help_pk)
     help.delete()
     return redirect('show_all_helps')
-
-
