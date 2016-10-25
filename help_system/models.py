@@ -52,21 +52,34 @@ class HelpTime(models.Model):
     def __str__(self):
         return str(self.time)
 
+    class Meta:
+        ordering = ['time']
+
 class HelpDate(models.Model):
     date = models.DateField()
 
     def __str__(self):
         return str(self.date)
 
+
+
 class Record(models.Model):
     date = models.ForeignKey(HelpDate, related_name='record')
     time = models.ManyToManyField(HelpTime, related_name='record')
+    help = models.ForeignKey('Help', related_name='records', null=True)
+
+
+    class Meta:
+        ordering = ['date']
 
     def __str__(self):
         record = str(self.date)
         for time in self.time.all():
             record  += ' ' + str(time)
+        if self.help:
+            return record + ' help_pk ' +  str(self.help.pk)
         return record
+
 
 class Help(models.Model):
     tutor = models.ForeignKey(UserProfile, related_name='helps')

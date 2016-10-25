@@ -6,20 +6,45 @@
     {{ tutor.name }}
     {{ tutor.surname }}
     {{ tutor.rating }}<br>
-    {{ tutor.speciality }}
+    {% for spec in tutor.speciality.all %}
+        {{ spec }}
+    {% endfor %}
     {{ tutor.term }}<br>
-    {{ tutor.subject.all }}<br>
+    {% for sub in tutor.subject.all %}
+       <span> {{ sub.title }} </span>
+    {% endfor %}
+    <br>
     {{ tutor.prefered_date_and_time }}<br>
     {{ tutor.lesson_place }}<br>
     {{ tutor.registration_date }}
     <br><br>
-    <h3>Helps</h3>
+
+    <h3>Offered help</h3>
     {% for help in tutor.helps.all %}
-        {{ help.tutor }} helped
-        {{ help.student }}<br>
-        {{ help.date }}<br>
-        <a href="{% url 'detailed_help_information' help.pk %}">Detail information</a><br><br>
+        {{ help.subject }}<br>
+        {{ help.definition }}<br><br>
+        {% for record in help.records.all %}
+            <h4>{{ record.date.date }}</h4>
+            {% for time in record.time.all %}
+                <p>{{ time.time }}</p>
+            {% endfor %}
+        {% endfor %}
     {% endfor %}
+
+    <h3>Provided help</h3>
+    {% for help in tutor.helps.all %}
+        {% if help.received.all %}
+            {{ help.tutor }} helped
+            {% for rcv in help.received.all %}
+                {{ rcv.student }} on
+                {{ rcv.date }} by {{ help.subject }}<br>
+            {% endfor %}
+            {{ help.date }}<br>
+            <a href="{% url 'detailed_help_information' help.pk %}">Detail information about offered help </a><br><br>
+        {% endif %}
+    {% endfor %}
+
+
     <h3>References</h3>
     {% for reference in tutor.references.all %}
         {{ reference.author.profile.name }}
