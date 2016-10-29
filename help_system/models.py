@@ -49,7 +49,7 @@ class Reference(models.Model):
 class HelpTime(models.Model):
     time = models.TimeField()
 
-    def __str__(self):
+    def __unicode__(self):
         return str(self.time)
 
     class Meta:
@@ -58,7 +58,7 @@ class HelpTime(models.Model):
 class HelpDate(models.Model):
     date = models.DateField()
 
-    def __str__(self):
+    def __unicode__(self):
         return str(self.date)
 
 
@@ -72,7 +72,7 @@ class Record(models.Model):
     class Meta:
         ordering = ['date']
 
-    def __str__(self):
+    def __unicode__(self):
         record = str(self.date)
         for time in self.time.all():
             record  += ' ' + str(time)
@@ -92,9 +92,6 @@ class Help(models.Model):
         return str(self.pk)
 
 
-# class Table(models.Model):
-#     record = models.ManyToManyField(Record, related_name='table')
-#     help = models.ForeignKey(Help, null=True, related_name='offered_timetable')
 
 
 class HelpReceived(models.Model):
