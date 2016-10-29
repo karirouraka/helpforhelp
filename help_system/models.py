@@ -92,9 +92,9 @@ class Help(models.Model):
         return str(self.pk)
 
 
-class Table(models.Model):
-    record = models.ManyToManyField(Record, related_name='table')
-    help = models.ForeignKey(Help, null=True, related_name='offered_timetable')
+# class Table(models.Model):
+#     record = models.ManyToManyField(Record, related_name='table')
+#     help = models.ForeignKey(Help, null=True, related_name='offered_timetable')
 
 
 class HelpReceived(models.Model):

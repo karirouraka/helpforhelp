@@ -38,6 +38,8 @@ urlpatterns = [
     url(r'^edit_help/(?P<help_pk>\d+)/$', edit_help, name='edit_help'),
     url(r'^delete_help/(?P<help_pk>\d+)/$', delete_help, name='delete_help'),
 
+    url(r'^date_time_add/$', add_record, name='add_record'),
+
 
 
 ]

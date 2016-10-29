@@ -30,8 +30,8 @@ class HelpDateAdmin(admin.ModelAdmin):
 class RecordAdmin(admin.ModelAdmin):
     pass
 
-class TableAdmin(admin.ModelAdmin):
-    pass
+# class TableAdmin(admin.ModelAdmin):
+#     pass
 
 
 
@@ -45,4 +45,4 @@ admin.site.register(HelpReceived, HelpReceivedAdmin)
 admin.site.register(HelpTime, HelpTimeAdmin)
 admin.site.register(HelpDate, HelpDateAdmin)
 admin.site.register(Record, RecordAdmin)
-admin.site.register(Table, TableAdmin)
+# admin.site.register(Table, TableAdmin)

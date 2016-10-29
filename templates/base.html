@@ -13,7 +13,9 @@
                 {% if request.user.username %}
                     <div class="menu_item"><a href="{% url 'log_out' %}">Log out</a></div>
                     <div class="menu_item"><a href="{% url 'show_all_helps' %}">Helps</a></div>
-                    <div class="menu_item"><a href="{% url 'show_all_tutors' %}">Tutors</a>
+                    <div class="menu_item"><a href="{% url 'show_all_tutors' %}">Tutors</a></div>
+                    <div class="menu_item"><a href="{% url 'register_help' %}">Add help</a></div>
+                    <div class="menu_item"><a href="{% url 'add_record' %}">Add time</a></div>
                 {% else %}
                     <div class="menu_item"><a href="{% url 'log_in' %}">Log in</a></div>
                     <div class="menu_item"><a href="{% url 'register' %}">Register</a></div>

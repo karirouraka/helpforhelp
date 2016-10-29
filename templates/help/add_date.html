@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>Add date and time</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ record_form }}
+        <button type="submit">Add</button>
+    </form>
+{% endblock %}

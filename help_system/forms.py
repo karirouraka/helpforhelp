@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from help_system.models import UserProfile, Help, Reference
+from help_system.models import UserProfile, Help, Reference, Record
 from django.contrib.auth.models import User
 
 class UserProfileForm(forms.ModelForm):
@@ -17,6 +17,13 @@ class UserRegistrationForm(forms.ModelForm):
         model = User
         fields = ['username', 'password', 'email']
 
+class RecordForm(forms.ModelForm):
+
+    class Meta:
+        model = Record
+        fields = ['date', 'time']
+
+
 class HelpForm(forms.ModelForm):
 
     class Meta:
@@ -32,3 +39,5 @@ class ReferenceForm(forms.ModelForm):
     class Meta:
         model = Reference
         fields = ['text']
+
+

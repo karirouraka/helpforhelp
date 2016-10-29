@@ -1,9 +1,8 @@
-from django.shortcuts import render,render_to_response,HttpResponse, redirect
-from django.template import RequestContext
+from django.shortcuts import render,HttpResponse, redirect
 from help_system.models import UserProfile, Help
-from help_system.forms import UserRegistrationForm, UserProfileForm, LogInForm, HelpForm, ReferenceForm
+from help_system.forms import *
 from django.contrib.auth import login, authenticate,logout
-from django.contrib.auth.models import Permission, User
+from django.contrib.auth.models import  User
 from django.contrib.auth.decorators import login_required
 # Create your views here
 #
@@ -131,6 +130,33 @@ def fill_out_help(request):
             return render(request, 'tutor/register_help.html', {'help_form': help_form})
     help_form = HelpForm()
     return render(request, 'tutor/register_help.html', {'help_form': help_form})
+
+@login_required
+def add_record(request):
+    if request.POST:
+        record_form = RecordForm(request.POST)
+        if record_form.is_valid():
+            if not hasattr(request.user,'profile'):
+                return redirect('fill_out_profile')
+            helps = Help.objects.filter(tutor = request.user.profile)
+            data = record_form.cleaned_data
+            times = data.get('time', None)
+            date = data.get('date')
+            for help in helps:
+                record = Record()
+                record.date = date
+                record.help = help
+                record.save()
+                record = Record.objects.last()
+                for t in times:
+                    record.time.add(t)
+            record.save()
+            return redirect('show_all_helps')
+        else:
+            return render(request, 'help/add_date.html', {'record_form': record_form})
+    record_form = RecordForm()
+    return render(request, 'help/add_date.html', {'record_form': record_form})
+
 
 @login_required
 def edit_help(request, help_pk):
