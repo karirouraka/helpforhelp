@@ -1,12 +1,15 @@
 from django.shortcuts import render,HttpResponse, redirect
-from help_system.models import UserProfile, Help
+from help_system.models import UserProfile, Help, HelpReceived
 from help_system.forms import *
 from django.contrib.auth import login, authenticate,logout
 from django.contrib.auth.models import  User
 from django.contrib.auth.decorators import login_required
 # Create your views here
-#
-# .
+
+
+def index(request):
+    return render(request, 'index.html', {})
+
 def register(request):
     if request.POST:
         registration_form = UserRegistrationForm(request.POST)
@@ -29,7 +32,6 @@ def log_in(request):
     if request.POST:
         login_form = LogInForm(request.POST)
         if login_form.is_valid():
-
             user_identification = login_form.cleaned_data['user_identification'].strip()
             password = login_form.cleaned_data['password'].strip()
             user_by_email = authenticate(email=user_identification, password=password)
@@ -61,13 +63,9 @@ def fill_out_profile(request):
         if profile_form.is_valid():
             user_profile_base = UserProfile.objects.filter(registration_info = request.user).first()
             if user_profile_base:
-                # user_profile_base.delete()
                 for key in profile_form.cleaned_data:
                     if hasattr(user_profile_base,key):
                         setattr(user_profile_base,key,profile_form.cleaned_data[key])
-                # changed_data = profile_form.cleaned_data
-                # if user_profile_base.name != changed_data['name']:
-                #     user_profile_base.name = changed_data['name']
                 user_profile_base.save()
             else:
                 user_profile = profile_form.save(commit=False)
@@ -107,8 +105,6 @@ def send_reference(request, tutor_pk):
         reference.save()
         return redirect('get_tutor_by_name', tutor_pk=tutor_pk)
     return render(request,'tutor/tutor.html', {'tutor': tutor, 'reference_form': reference_form})
-
-
 
 @login_required
 def show_all_helps(request):
@@ -180,6 +176,12 @@ def get_help(request, help_pk):
     help = Help.objects.get(pk=help_pk)
     return render(request, 'help/detailed_help_information.html', {'help': help})
 
+@login_required
+def receive_help(request, help_pk):
+    student_profile = request.user.profile
+    help = Help.objects.get(pk=help_pk)
+    received_help = HelpReceived.objects.create(student = student_profile, help = help)
+    return redirect('get_help', help_pk=help_pk)
 
 @login_required
 def delete_help(request, help_pk):

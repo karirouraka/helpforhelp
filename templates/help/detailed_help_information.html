@@ -3,7 +3,7 @@
     <div class="help">
             {{ help.tutor }}
             {{ help.subject }}<br>
-            {{ help.definition }}<br>
+            {{ help.definition }}--{{ help.received.count }}<br>
             {{ help.date }}
     </div>
 
@@ -17,4 +17,8 @@
             <button type="submit">Edit help</button>
         </form>
     {% endif %}
+    <form method="POST" action ="{% url 'receive_help' help.pk %}">
+        {% csrf_token %}
+        <button type="submit">I received this help</button>
+    </form>
 {% endblock %}

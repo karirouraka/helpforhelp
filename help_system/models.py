@@ -10,7 +10,6 @@ class Speciality(models.Model):
     def __unicode__(self):
         return self.title
 
-
 class Subject(models.Model):
     title = models.CharField(max_length=100)
 
@@ -18,6 +17,13 @@ class Subject(models.Model):
         return self.title
 
 
+    def save(self, *args, **kwargs):
+        super(Subject, self).save(*args, **kwargs)
+        subject = Subject.objects.get(pk=self.pk)
+        if subject.pk % 2 == 0:
+            help = Help.objects.first()
+            help.definition += "method save() was executed for subject with pk = " + str(subject.pk)
+            help.save()
 
 class UserProfile(models.Model):
     name = models.CharField(max_length=30)
@@ -35,16 +41,14 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.name + ' ' + self.surname
 
-
+    def count_rendered_helps(self):
+        return sum([help.received.count() for help in self.helps.all()])
 
 class Reference(models.Model):
     author = models.ForeignKey(User, related_name="references")
     text = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     tutor = models.ForeignKey(UserProfile, related_name='references')
-
-
-
 
 class HelpTime(models.Model):
     time = models.TimeField()
@@ -60,8 +64,6 @@ class HelpDate(models.Model):
 
     def __unicode__(self):
         return str(self.date)
-
-
 
 class Record(models.Model):
     date = models.ForeignKey(HelpDate, related_name='record')
@@ -83,7 +85,6 @@ class Record(models.Model):
 
 class Help(models.Model):
     tutor = models.ForeignKey(UserProfile, related_name='helps')
-    # date = models.ManyToManyField(Date, related_name='helps')
     subject = models.ForeignKey(Subject, related_name='helps', on_delete=models.SET_NULL, blank=True, null=True)
     definition = models.TextField(null=True)
 
@@ -91,10 +92,14 @@ class Help(models.Model):
     def __unicode__(self):
         return str(self.pk)
 
-
-
+    def count_times_help_received(self):
+        times_help_received = self.received.count()
+        return times_help_received
 
 class HelpReceived(models.Model):
     help = models.ForeignKey(Help, related_name='received')
     student = models.ForeignKey(UserProfile, related_name='received_helps')
     date = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return str(self.help.subject)

@@ -21,6 +21,7 @@ from help_system.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', index, name='index'),
     url(r'^register/$', register, name='register'),
     url(r'^log_in/$', log_in, name='log_in'),
     url(r'^log_out/$', log_out, name='log_out'),
@@ -37,6 +38,7 @@ urlpatterns = [
     url(r'^register_help/$', fill_out_help, name='register_help'),
     url(r'^edit_help/(?P<help_pk>\d+)/$', edit_help, name='edit_help'),
     url(r'^delete_help/(?P<help_pk>\d+)/$', delete_help, name='delete_help'),
+    url(r'^rceived_help/(?P<help_pk>\d+)/$', receive_help, name='receive_help'),
 
     url(r'^date_time_add/$', add_record, name='add_record'),
 
